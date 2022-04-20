@@ -9,6 +9,9 @@ import verify from "../middleware/verify";
 const gratitudeRouter = (prisma: PrismaClient) => {
   const router = Router();
 
+  /**
+   * Get all gratitude entries
+   */
   router.get("/", async (req: Request, res: Response) => {
     let gratitudeEntries = await prisma.gratitudeEntry.findMany();
     res.send(gratitudeEntries);

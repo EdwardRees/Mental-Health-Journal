@@ -4,7 +4,7 @@ import authRouter from './auth';
 import userRouter from './user';
 import gratitudeRouter from './gratitude';
 import affirmationRouter from './affirmation';
-// import moodJournalRoutes from './mood-journal';
+import moodRouter from './mood';
 
 /**
  * Routes for the server
@@ -32,6 +32,7 @@ export default (app: Application, prisma: PrismaClient) => {
   /**
    * Routes for mood journal
    */
+  app.use("/api/mood", moodRouter(prisma));
 
 }  
 

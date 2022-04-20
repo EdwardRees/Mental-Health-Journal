@@ -53,6 +53,7 @@ model MoodEntry {
   userId    Int      @unique
   mood      String
   emotions  String[]
+  moodScore Int
   date      DateTime
 }
 
