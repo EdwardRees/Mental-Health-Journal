@@ -13,7 +13,8 @@ export default (app: Application, prisma: PrismaClient) => {
   /**
    * Routes for authentication
    */
-  authRouter(app, prisma);
+  app.use("/api/auth", authRouter(prisma));
+
   /**
    * Routes for user profile
    */
