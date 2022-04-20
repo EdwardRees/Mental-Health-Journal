@@ -1,7 +1,7 @@
 {
-  "name": "mental-health-journal",
+  "name": "mental-health-journal-api",
   "version": "1.0.0",
-  "description": "Mental Health Journal project",
+  "description": "Mental Health Journal application; combination of a gratitude journal, affirmations journal, and mood journal",
   "main": "index.js",
   "repository": "git@github.com:EdwardRees/Mental-Health-Journal.git",
   "author": "Edward Rees <erees.hk@gmail.com>",

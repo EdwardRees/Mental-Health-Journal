@@ -1,7 +1,7 @@
 {
   "name": "mental-health-journal",
   "version": "1.0.0",
-  "description": "Mental Health Journal application; combination of a gratitude journal, affirmations journal, and mood journal",
+  "description": "Mental Health Journal api",
   "main": "dist/index.js",
   "author": "Edward Rees",
   "license": "MIT",
