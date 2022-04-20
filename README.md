@@ -2,6 +2,12 @@
 
 This is a simple Mental Health Journal project. The idea is to create a simple mobile and web application that helps users keep a running journal for mental health related topics. This will initially consist of a Gratitude Journal, Affirmations, and a Mood Journal. As this is developed, these may extend to further features, but this is the idea for now.
 
+## Features
+
+- Gratitude Journal
+- Affirmations
+- Mood Journal
+
 ## Technology
 
 ### Backend
@@ -35,8 +41,3 @@ This is a simple Mental Health Journal project. The idea is to create a simple m
 - Axios
 - TypeScript
 
-## Features
-
-- Gratitude Journal
-- Affirmations
-- Mood Journal
