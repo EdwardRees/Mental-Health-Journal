@@ -7,8 +7,9 @@ const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", function (req: Request, res: Response) {
+app.get("/api/", function (req: Request, res: Response) {
   res.send("Welcome to the Mental Health Journal API");
 });
 
