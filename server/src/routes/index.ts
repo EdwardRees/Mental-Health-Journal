@@ -1,29 +1,34 @@
+import { Application } from 'express';
+import { PrismaClient } from '@prisma/client';
+import authRouter from './auth';
+//import userProfileRoutes from './user-profile';
+//import gratitudeJournalRoutes from './gratitude-journal';
+// import affirmationRoutes from './affirmation';
+// import moodJournalRoutes from './mood-journal';
+
 /**
  * Routes for the server
  */
-// import { Router } from "express";
+export default (app: Application, prisma: PrismaClient) => {
+  /**
+   * Routes for authentication
+   */
+  authRouter(app, prisma);
+  /**
+   * Routes for user profile
+   */
+  
+  /**
+   * Routes for gratitude journal
+   */
+  
+  /**
+   * Routes for affirmation
+   */
+  
+  /**
+   * Routes for mood journal
+   */
 
-/**
- * Routes for authentication
- */
-// import authRoutes from './auth';
+}  
 
-/**
- * Routes for user profile
- */
-//import userProfileRoutes from './user-profile';
-
-/**
- * Routes for gratitude journal
- */
-//import gratitudeJournalRoutes from './gratitude-journal';
-
-/**
- * Routes for affirmation
- */
-// import affirmationRoutes from './affirmation';
-
-/**
- * Routes for mood journal
- */
-// import moodJournalRoutes from './mood-journal';

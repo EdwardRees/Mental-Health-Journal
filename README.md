@@ -14,8 +14,8 @@ This is a simple Mental Health Journal project. The idea is to create a simple m
 
 - NodeJS
 - ExpressJS
-- Sequelize
-- Postgres
+- Prisma
+- PostgreSQL
 - jsonwebtoken
 - bcrypt
 
@@ -41,3 +41,14 @@ This is a simple Mental Health Journal project. The idea is to create a simple m
 - Axios
 - TypeScript
 
+## Database Model
+
+Auth
+
+User
+
+GratitudeEntry
+
+AffirmationEntry
+
+MoodEntry
