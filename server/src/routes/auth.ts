@@ -3,9 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import verify from "../middleware/verify";
 import jwt from "jsonwebtoken";
-export type UserWhereUniqueInput = {
-  email?: string | null
-}
 /**
  * Prisma client used for connecting to the database
  *
@@ -38,6 +35,15 @@ const authRouter = (prisma: PrismaClient) => {
               password: hash,
             },
           },
+          gratitudeEntries: {
+            create: [],
+          },
+          affirmationEntries: {
+            create: [],
+          },
+          moodEntries: {
+            create: []
+          }
         },
       })
       .then((user) => {

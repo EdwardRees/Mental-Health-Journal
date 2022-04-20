@@ -1,9 +1,9 @@
 import { Application } from 'express';
 import { PrismaClient } from '@prisma/client';
 import authRouter from './auth';
-//import userProfileRoutes from './user-profile';
-//import gratitudeJournalRoutes from './gratitude-journal';
-// import affirmationRoutes from './affirmation';
+import userRouter from './user';
+import gratitudeRouter from './gratitude';
+import affirmationRouter from './affirmation';
 // import moodJournalRoutes from './mood-journal';
 
 /**
@@ -18,14 +18,16 @@ export default (app: Application, prisma: PrismaClient) => {
   /**
    * Routes for user profile
    */
-  
+  app.use("/api/user", userRouter(prisma));
   /**
    * Routes for gratitude journal
    */
+  app.use("/api/gratitude", gratitudeRouter(prisma));
   
   /**
    * Routes for affirmation
    */
+  app.use("/api/affirmation", affirmationRouter(prisma));
   
   /**
    * Routes for mood journal
