@@ -18,6 +18,7 @@ This is a simple Mental Health Journal project. The idea is to create a simple m
 - PostgreSQL
 - jsonwebtoken
 - bcrypt
+- TypeScript
 
 ### Frontend
 
