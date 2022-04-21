@@ -10,6 +10,9 @@ const moodRouter = (prisma: PrismaClient) => {
     res.send(moodEntries);
   });
 
+  /**
+   * @route GET /mood/:id Get mood entry by id
+   */
   router.post(
     "/create/:userId",
     [verify],
@@ -41,6 +44,35 @@ const moodRouter = (prisma: PrismaClient) => {
         .catch((err) => res.status(500).send(err));
     }
   );
+
+  /**
+   * @route PUT api/mood/update/:id
+   */
+  router.put("/update/:id", [verify], async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { mood, date, emotions, moodScore } = req.body;
+    if (!id || !mood || !date) {
+      return res.status(400).send({
+        error: "Please provide an id, mood, and date",
+      });
+    }
+    await prisma.moodEntry
+      .update({
+        where: {
+          id: parseInt(id),
+        },
+        data: {
+          mood: mood,
+          date: date,
+          emotions: emotions.split(","),
+          moodScore: parseInt(moodScore),
+        },
+      })
+      .then((moodEntry) => {
+        res.send(moodEntry);
+      })
+      .catch((err) => res.status(500).send(err));
+  });
   return router;
 };
 

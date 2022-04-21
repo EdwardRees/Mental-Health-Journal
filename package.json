@@ -12,7 +12,7 @@
     "mobile": "npm start --prefix client/app",
     "web": "npm start --prefix client/web",
     "start": "yarn server",
-    "all": "concurrently -n \"server,mobile,web\" -c \"#ff0000,#00ff00,#0000ff\" -k \"yarn api\" \"yarn mobile\" \"yarn web\""
+    "all": "concurrently -n \"server,mobile,web\" -c \"#ff0000,#00ff00,#0000ff\" -k \"yarn server\" \"yarn mobile\" \"yarn web\""
   },
   "dependencies": {
     "concurrently": "^7.1.0"
