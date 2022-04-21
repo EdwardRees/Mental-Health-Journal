@@ -73,6 +73,36 @@ const moodRouter = (prisma: PrismaClient) => {
       })
       .catch((err) => res.status(500).send(err));
   });
+
+  /**
+   * @route DELETE api/mood/delete/:id
+   */
+  router.delete(
+    "/delete/:id",
+    [verify],
+    async (req: Request, res: Response) => {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).send({
+          error: "Please provide an id",
+        });
+      }
+      await prisma.moodEntry
+        .delete({
+          where: {
+            id: parseInt(id),
+          },
+        })
+        .then((moodEntry) => {
+          res.send(moodEntry);
+        })
+        .catch((err) => res.status(500).send(err));
+    }
+  );
+
+  
+
+
   return router;
 };
 

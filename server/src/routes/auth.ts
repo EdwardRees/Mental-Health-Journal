@@ -1,7 +1,6 @@
-import { Request, Response, Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import verify from "../middleware/verify";
+import { Request, Response, Router } from "express";
 import jwt from "jsonwebtoken";
 /**
  * Prisma client used for connecting to the database
@@ -19,7 +18,7 @@ const authRouter = (prisma: PrismaClient) => {
     const { email, password, username } = req.body;
     if (!email || !password || !username) {
       return res.status(400).send({
-        error: "Please provide an email, password, and username"
+        error: "Please provide an email, password, and username",
       });
     }
     // encrypt password with bcrypt
@@ -42,8 +41,8 @@ const authRouter = (prisma: PrismaClient) => {
             create: [],
           },
           moodEntries: {
-            create: []
-          }
+            create: [],
+          },
         },
       })
       .then((user) => {
@@ -65,7 +64,7 @@ const authRouter = (prisma: PrismaClient) => {
     await prisma.auth
       .findUnique({
         where: {
-          email: email
+          email: email,
         },
       })
       .then((user: any) => {

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export default (req: any, res: Response, next: NextFunction) => {
