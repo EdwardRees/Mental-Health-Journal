@@ -56,4 +56,4 @@ MoodEntry
 
 ## Notes from the Developer
 
-- This is a revamp of the [https://github.com/EdwardRees/Simple-Gratitude-Journal](https://github.com/EdwardRees/Simple-Gratitude-Journal) project as I wanted to redo it, redesigning it, and add more functionality to it. I also didn't like how it was all hosted on the app. So I'm redoing this project and having backend and frontend implementations.
+- This is a revamp of the [Simple-Gratitude-Journal](https://github.com/EdwardRees/Simple-Gratitude-Journal) project as I wanted to redo it, redesigning it, and add more functionality to it. I also didn't like how it was all hosted on the app. So I'm redoing this project and having backend and frontend implementations.
