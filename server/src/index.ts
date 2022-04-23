@@ -1,6 +1,7 @@
-import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import routes from './routes';
+import express, { Request, Response } from "express";
+import routes from "./routes";
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -14,6 +15,5 @@ app.get("/api/", function (req: Request, res: Response) {
 });
 
 routes(app, prisma);
-
 
 app.listen(PORT, () => console.info(`Listening on ${PORT}`));

@@ -10,10 +10,22 @@ import jwt from "jsonwebtoken";
 const authRouter = (prisma: PrismaClient) => {
   const router = Router();
 
+  /**
+   * @desc Check auth endpoint
+   * @method GET
+   * @route /api/auth
+   * @privacy public
+   */
   router.get("/", (req: Request, res: Response) => {
     res.send("Authentication route");
   });
 
+  /**
+   * @desc Register a user
+   * @method POST
+   * @route /api/auth/register
+   * @privacy public
+   */
   router.post("/register", async (req: Request, res: Response) => {
     const { email, password, username } = req.body;
     if (!email || !password || !username) {
@@ -54,6 +66,12 @@ const authRouter = (prisma: PrismaClient) => {
       });
   });
 
+  /**
+   * @desc Login a user
+   * @method POST
+   * @route /api/auth/login
+   * @privacy public
+   */
   router.post("/login", async (req: Request, res: Response) => {
     const { email, password } = req.body;
     if (!email || !password) {

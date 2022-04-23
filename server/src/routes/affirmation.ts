@@ -1,5 +1,6 @@
-import { Request, Response, Router } from "express";
 import { PrismaClient } from "@prisma/client";
+import { Request, Response, Router } from "express";
+import admin from "../middleware/admin";
 import verify from "../middleware/verify";
 
 /**
@@ -10,15 +11,31 @@ const affirmationRouter = (prisma: PrismaClient) => {
   const router = Router();
 
   /**
-   * Get all affirmation entries
+   * @desc Check affirmation endpoint
+   * @method GET
+   * @route /api/affirmation
+   * @privacy public
    */
   router.get("/", async (req: Request, res: Response) => {
+    res.send("Affirmation Endpoint");
+  });
+
+  /**
+   * @desc Get all affirmation entries
+   * @method GET
+   * @route /api/affirmation/all
+   * @privacy private: only admins can access this endpoint
+   */
+  router.get("/all", [admin], async (req: Request, res: Response) => {
     let affirmationEntries = await prisma.affirmationEntry.findMany();
     res.send(affirmationEntries);
   });
 
   /**
-   * Create a affirmation entry for a user id
+   * @desc Create a affirmation entry for a user id
+   * @method POST
+   * @route /api/affirmation/create/:userId
+   * @privacy private: only a verified user can access this endpoint
    */
   router.post(
     "/create/:userId",
@@ -51,7 +68,10 @@ const affirmationRouter = (prisma: PrismaClient) => {
   );
 
   /**
-   * Get affirmation entries for user by id
+   * @desc Get affirmation entries for user by id
+   * @method GET
+   * @route /api/affirmation/user/:userId
+   * @privacy private: only a verified user can access this endpoint
    */
   router.get("/user/:userId", [verify], async (req: Request, res: Response) => {
     const { userId } = req.params;
@@ -75,7 +95,10 @@ const affirmationRouter = (prisma: PrismaClient) => {
   });
 
   /**
-   * Get affirmation entries by id
+   * @desc Get affirmation entries by id
+   * @method GET
+   * @route /api/affirmation/get/:id
+   * @privacy private: only a verified user can access this endpoint
    */
   router.get("/get/:id", [verify], async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -97,7 +120,10 @@ const affirmationRouter = (prisma: PrismaClient) => {
   });
 
   /**
-   * Update an affirmation entry by id
+   * @desc Update an affirmation entry by id
+   * @method PUT
+   * @route /api/affirmation/update/:userId/:affirmationId
+   * @privacy private: only a verified user can access this endpoint
    */
   router.put(
     "/update/:userId/:affirmationId",
@@ -123,6 +149,35 @@ const affirmationRouter = (prisma: PrismaClient) => {
             },
             affirmation: affirmation,
             date: date,
+          },
+        })
+        .then((affirmationEntry) => {
+          res.send(affirmationEntry);
+        })
+        .catch((err) => res.status(500).send(err));
+    }
+  );
+
+  /**
+   * @desc Delete an affirmation entry by id
+   * @method DELETE
+   * @route /api/affirmation/delete/:affirmationId
+   * @privacy private: only a verified user can access this endpoint
+   */
+  router.delete(
+    `/delete/:id`,
+    [verify],
+    async (req: Request, res: Response) => {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).send({
+          error: "Please provide an id",
+        });
+      }
+      await prisma.affirmationEntry
+        .delete({
+          where: {
+            id: parseInt(id),
           },
         })
         .then((affirmationEntry) => {

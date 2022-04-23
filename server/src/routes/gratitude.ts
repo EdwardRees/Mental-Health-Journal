@@ -1,5 +1,6 @@
-import { Request, Response, Router } from "express";
 import { PrismaClient } from "@prisma/client";
+import { Request, Response, Router } from "express";
+import admin from "../middleware/admin";
 import verify from "../middleware/verify";
 
 /**
@@ -10,15 +11,31 @@ const gratitudeRouter = (prisma: PrismaClient) => {
   const router = Router();
 
   /**
-   * Get all gratitude entries
+   * @desc Check Gratitude journal endpoint
+   * @method GET
+   * @route /api/gratitude
+   * @privacy public
    */
   router.get("/", async (req: Request, res: Response) => {
+    res.send("Gratitude Endpoint");
+  });
+
+  /**
+   * @desc Get all gratitude entries
+   * @method GET
+   * @route /api/gratitude/all
+   * @privacy private: only admins can access this endpoint
+   */
+  router.get("/all", [admin], async (req: Request, res: Response) => {
     let gratitudeEntries = await prisma.gratitudeEntry.findMany();
     res.send(gratitudeEntries);
   });
 
   /**
-   * Create a gratitude entry for a user id
+   * @desc Create a gratitude entry for a user id
+   * @method POST
+   * @route /api/gratitude/create/:userId
+   * @privacy private: only a verified user can access this endpoint
    */
   router.post(
     "/create/:userId",
@@ -51,7 +68,10 @@ const gratitudeRouter = (prisma: PrismaClient) => {
   );
 
   /**
-   * Get gratitude entries for user by id
+   * @desc Get gratitude entries for user by id
+   * @method GET
+   * @route /api/gratitude/user/:userId
+   * @privacy private: only a verified user can access this endpoint
    */
   router.get("/user/:userId", [verify], async (req: Request, res: Response) => {
     const { userId } = req.params;
@@ -75,7 +95,10 @@ const gratitudeRouter = (prisma: PrismaClient) => {
   });
 
   /**
-   * Get gratitude entry by id
+   * @desc Get gratitude entry by id
+   * @method GET
+   * @route /api/gratitude/get/:id
+   * @privacy private: only a verified user can access this endpoint
    */
   router.get("/get/:id", [verify], async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -97,7 +120,10 @@ const gratitudeRouter = (prisma: PrismaClient) => {
   });
 
   /**
-   * Update a gratitude entry
+   * @desc Update a gratitude entry
+   * @method PUT
+   * @route /api/gratitude/update/:userId/:gratitudeId
+   * @privacy private: only a verified user can access this endpoint
    */
   router.put(
     "/update/:userId/:gratitudeId",
@@ -123,6 +149,35 @@ const gratitudeRouter = (prisma: PrismaClient) => {
             },
             gratitude: gratitude,
             date: date,
+          },
+        })
+        .then((gratitudeEntry) => {
+          res.send(gratitudeEntry);
+        })
+        .catch((err) => res.status(500).send(err));
+    }
+  );
+
+  /**
+   * @desc Delete a gratitude entry
+   * @method DELETE
+   * @route /api/gratitude/delete/:gratitudeId
+   * @privacy private: only a verified user can access this endpoint
+   */
+  router.delete(
+    "/delete/:gratitudeId",
+    [verify],
+    async (req: Request, res: Response) => {
+      const { gratitudeId } = req.params;
+      if (!gratitudeId) {
+        return res.status(400).send({
+          error: "Please provide an id",
+        });
+      }
+      await prisma.gratitudeEntry
+        .delete({
+          where: {
+            id: parseInt(gratitudeId),
           },
         })
         .then((gratitudeEntry) => {
