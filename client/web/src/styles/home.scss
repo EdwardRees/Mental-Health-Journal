@@ -1,0 +1,21 @@
+$primary: #00bcd4;
+$secondary: #e91e63;
+$primaryLight: #00e5ff;
+$primaryDark: #00b0ff;
+$primaryText: #212121;
+$secondaryText: #757575;
+$divider: #bdbdbd;
+$white: #fff;
+$black: #111;
+
+.container {
+  background-color: $black;
+  color: $primary;
+  display: flex;
+  flex: 1;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
