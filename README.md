@@ -31,6 +31,7 @@ This is a simple Mental Health Journal project. The idea is to create a simple m
 - React Navigation
 - Axios
 - TypeScript
+- Node-Sass
 
 #### Web
 
@@ -41,6 +42,7 @@ This is a simple Mental Health Journal project. The idea is to create a simple m
 - React Router Dom
 - Axios
 - TypeScript
+- Node-Sass
 
 ## Database Model
 
