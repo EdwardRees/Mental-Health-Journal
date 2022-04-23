@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const express_1 = require("express");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 /**
  * Prisma client used for connecting to the database
@@ -13,14 +13,26 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
  */
 const authRouter = (prisma) => {
     const router = (0, express_1.Router)();
+    /**
+     * @desc Check auth endpoint
+     * @method GET
+     * @route /api/auth
+     * @privacy public
+     */
     router.get("/", (req, res) => {
         res.send("Authentication route");
     });
+    /**
+     * @desc Register a user
+     * @method POST
+     * @route /api/auth/register
+     * @privacy public
+     */
     router.post("/register", async (req, res) => {
         const { email, password, username } = req.body;
         if (!email || !password || !username) {
             return res.status(400).send({
-                error: "Please provide an email, password, and username"
+                error: "Please provide an email, password, and username",
             });
         }
         // encrypt password with bcrypt
@@ -42,8 +54,8 @@ const authRouter = (prisma) => {
                     create: [],
                 },
                 moodEntries: {
-                    create: []
-                }
+                    create: [],
+                },
             },
         })
             .then((user) => {
@@ -53,6 +65,12 @@ const authRouter = (prisma) => {
             res.send({ user, token });
         });
     });
+    /**
+     * @desc Login a user
+     * @method POST
+     * @route /api/auth/login
+     * @privacy public
+     */
     router.post("/login", async (req, res) => {
         const { email, password } = req.body;
         if (!email || !password) {
@@ -63,7 +81,7 @@ const authRouter = (prisma) => {
         await prisma.auth
             .findUnique({
             where: {
-                email: email
+                email: email,
             },
         })
             .then((user) => {

@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const auth_1 = __importDefault(require("./auth"));
-const user_1 = __importDefault(require("./user"));
-const gratitude_1 = __importDefault(require("./gratitude"));
 const affirmation_1 = __importDefault(require("./affirmation"));
+const auth_1 = __importDefault(require("./auth"));
+const gratitude_1 = __importDefault(require("./gratitude"));
 const mood_1 = __importDefault(require("./mood"));
+const user_1 = __importDefault(require("./user"));
 /**
  * Routes for the server
  */
