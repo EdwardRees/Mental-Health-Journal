@@ -10,11 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Profile {
-  id     Int    @id @default(autoincrement())
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
-}
 
 model Auth {
   id       Int    @id @default(autoincrement())
@@ -60,7 +55,6 @@ model MoodEntry {
 model User {
   id                 Int               @id @default(autoincrement())
   auth               Auth?
-  profile            Profile?
   gratitudeEntries   GratitudeEntry[]
   affirmationEntries AffirmationEntry[]
   moodEntries        MoodEntry[]
