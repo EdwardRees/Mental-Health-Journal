@@ -5,6 +5,7 @@ import authRouter from "./auth";
 import gratitudeRouter from "./gratitude";
 import moodRouter from "./mood";
 import userRouter from "./user";
+import passwordResetRouter from "./passwordreset";
 
 /**
  * Routes for the server
@@ -16,7 +17,7 @@ export default (app: Application, prisma: PrismaClient) => {
   app.use("/api/auth", authRouter(prisma));
 
   /**
-   * Routes for user profile
+   * Routes for user
    */
   app.use("/api/user", userRouter(prisma));
   /**
@@ -33,4 +34,9 @@ export default (app: Application, prisma: PrismaClient) => {
    * Routes for mood journal
    */
   app.use("/api/mood", moodRouter(prisma));
+
+  /**
+   * Routes for password reset
+   */
+  app.use("/api/password-reset", passwordResetRouter(prisma));
 };

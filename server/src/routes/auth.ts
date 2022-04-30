@@ -55,6 +55,9 @@ const authRouter = (prisma: PrismaClient) => {
           moodEntries: {
             create: [],
           },
+          passwordReset: {
+            create: []
+          }
         },
       })
       .then((user) => {

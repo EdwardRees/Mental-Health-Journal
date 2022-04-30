@@ -56,6 +56,36 @@ const userRouter = (prisma: PrismaClient) => {
       });
   });
 
+  /**
+   * @desc Get a user by email
+   * @method GET
+   * @route /api/get/:id
+   * @privacy private: only a verified user can access this endpoint
+   */
+  router.get("/get/:id", [verify], async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).send({
+        error: "Please provide an id",
+      });
+    }
+    let user = await prisma.user.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+    let userId = user?.id as number;
+    let gratitude = await prisma.gratitudeEntry.findMany({
+      where: { userId },
+    });
+    let affirmation = await prisma.affirmationEntry.findMany({
+      where: { userId },
+    });
+    let mood = await prisma.moodEntry.findMany({ where: { userId } });
+
+    res.status(200).send({ user: { gratitude, affirmation, mood } });
+  });
+
   return router;
 };
 
