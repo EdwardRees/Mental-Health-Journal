@@ -33,6 +33,24 @@ const authRouter = (prisma: PrismaClient) => {
         error: "Please provide an email, password, and username",
       });
     }
+    let user = await prisma.auth.findUnique({
+      where: {
+        email: email,
+      }
+    });
+    if (user) {
+      return res.status(400).send({
+        error: "User already exists",
+      });
+    }
+    user = await prisma.auth.findUnique({where: {username: username}});
+    if(user){
+      return res.status(400).send({
+        error: "Username already exists",
+      });
+    }
+
+
     // encrypt password with bcrypt
     let hash = bcrypt.hashSync(password, 10);
 
@@ -56,6 +74,9 @@ const authRouter = (prisma: PrismaClient) => {
             create: [],
           },
           passwordReset: {
+            create: []
+          },
+          generalEntries: {
             create: []
           }
         },

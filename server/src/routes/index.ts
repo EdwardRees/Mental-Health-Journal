@@ -6,6 +6,7 @@ import gratitudeRouter from "./gratitude";
 import moodRouter from "./mood";
 import userRouter from "./user";
 import passwordResetRouter from "./passwordreset";
+import generalEntryRouter from "./general";
 
 /**
  * Routes for the server
@@ -34,6 +35,11 @@ export default (app: Application, prisma: PrismaClient) => {
    * Routes for mood journal
    */
   app.use("/api/mood", moodRouter(prisma));
+
+  /**
+   * Routes for general journal entries
+   */
+  app.use("/api/generalEntry", generalEntryRouter(prisma));
 
   /**
    * Routes for password reset
