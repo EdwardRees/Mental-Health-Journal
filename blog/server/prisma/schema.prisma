@@ -27,6 +27,7 @@ model BlogPost {
   updatedAt DateTime  @updatedAt
   title     String
   content   String
+  published Boolean   @default(false)
   author    User      @relation(fields: [authorId], references: [id])
   authorId  Int       @unique
   likes     Like[]
