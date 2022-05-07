@@ -73,6 +73,9 @@ model User {
   reputation    Int             @default(0) // Need to think of how to set this up and how to make use of this.
   auth          Auth?
   role          Role            @default(value: USER)
+  postCount     Int             @default(value: 0)
+  commentCount  Int             @default(value: 0)
+  likeCount     Int             @default(value: 0)
   blogPosts     BlogPost[]
   comments      Comment[]
   likes         Like[]

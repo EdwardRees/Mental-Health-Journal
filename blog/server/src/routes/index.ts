@@ -5,7 +5,7 @@ import userRouter from "./user";
 
 export default (app: Application, prisma: PrismaClient) => {
   app.use("/api/auth", authRouter(prisma));
-  app.use("/api/users", userRouter(prisma));
+  app.use("/api/user", userRouter(prisma));
 
   // TODO - add user routes
   // TODO - add blogpost routes

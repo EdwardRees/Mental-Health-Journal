@@ -68,6 +68,9 @@ CREATE TABLE "User" (
     "lastName" TEXT NOT NULL,
     "reputation" INTEGER NOT NULL DEFAULT 0,
     "role" "Role" NOT NULL DEFAULT E'USER',
+    "postCount" INTEGER NOT NULL DEFAULT 0,
+    "commentCount" INTEGER NOT NULL DEFAULT 0,
+    "likeCount" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
