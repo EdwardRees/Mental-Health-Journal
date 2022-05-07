@@ -2,12 +2,16 @@ import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 
 /**
- * Verify middleware
+ * Optional middleware
  * @param req Request object
  * @param res Response object
  * @param next Next function
  * 
- * If the user is logged in, parse the decoded token and set the user. If not, send a 401 with an error message.
+ * If the user is logged in, parse the decoded token and set the user.
+ * If the user is not logged in, set the user to null.
+ * Either way, continue.
+ * 
+ * This is important only for endpoints that may require an optional authentication layer. (@see /blog/:id)
  */
 export default (req: any, res: Response, next: NextFunction) => {
   if (req.headers["x-auth-token"]) {
@@ -18,13 +22,11 @@ export default (req: any, res: Response, next: NextFunction) => {
       req.user = decoded;
       next();
     } catch (e) {
-      res.status(401).send({
-        error: "Invalid token",
-      });
+      req.user = null;
+      next();
     }
   } else {
-    res.status(401).send({
-      error: "No token provided",
-    });
+    req.user = null;
+    next();
   }
 };

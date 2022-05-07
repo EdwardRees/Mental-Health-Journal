@@ -29,9 +29,19 @@ model BlogPost {
   content   String
   published Boolean   @default(false)
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  Int       @unique
+  authorId  Int       
+  authorName String
   likes     Like[]
   comments  Comment[]
+  tags      Tag[]
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  posts     BlogPost[]
 }
 
 model Like {
