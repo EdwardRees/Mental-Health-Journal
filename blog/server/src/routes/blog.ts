@@ -138,15 +138,49 @@ const blogRouter = (prisma: PrismaClient) => {
     }
     if (!blog.published && req.user === null) {
       return res.status(401).send({
-        error: "Blog not found. Log in to view or publish.",
+        error: "Blog not published. Log in to view or publish.",
       });
     }
-    if (!blog.published && req.user.userId !== blog.authorId) {
+    if (!blog.published && req.user.user.userId !== blog.authorId) {
       return res.status(403).send({
-        error: "Blog not found. Log in to view or publish.",
+        error: "Blog not published. Log in to publish.",
       });
     }
     return res.send(blog);
+  });
+
+  router.delete("/delete/:id", [verify], async (req: any, res: Response) => {
+    const { user } = req.user;
+    const { userId } = user;
+    const { id } = req.params;
+    if (!userId || !id) {
+      return res.status(400).send({
+        error: "Please provide all required fields",
+      });
+    }
+    let blog = await prisma.blogPost.findMany({
+      where: {
+        id: parseInt(id),
+        authorId: parseInt(userId),
+      },
+    });
+    if (blog.length === 0) {
+      return res.status(400).send({
+        error: "Blog not found",
+      });
+    }
+    await prisma.blogPost
+      .deleteMany({
+        where: {
+          id: parseInt(id),
+          authorId: parseInt(userId),
+        },
+      })
+      .then((blogPost) => res.send(blogPost))
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+      });
   });
 
   return router;
