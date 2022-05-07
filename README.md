@@ -1,61 +1,11 @@
-# Mental Health Journal App
+# Mental Health Project
 
-This is a simple Mental Health Journal project. The idea is to create a simple mobile and web application that helps users keep a running journal for mental health related topics. This will initially consist of a Gratitude Journal, Affirmations, and a Mood Journal. As this is developed, these may extend to further features, but this is the idea for now.
+A mental health project with two main sub-projects
 
-## Features
+## Mental Health Journal
 
-- Gratitude Journal
-- Affirmations
-- Mood Journal
+A Mental Health Journal with a server, mobile client, and web client
 
-## Technology
+## Mental Health Blog
 
-### Backend
-
-- NodeJS
-- ExpressJS
-- Prisma
-- PostgreSQL
-- jsonwebtoken
-- bcrypt
-- TypeScript
-
-### Frontend
-
-#### Mobile
-
-- React Native
-- Expo
-- Redux
-- React Redux
-- React Navigation
-- Axios
-- TypeScript
-- Node-Sass
-
-#### Web
-
-- React
-- Vite
-- Redux
-- React Redux
-- React Router Dom
-- Axios
-- TypeScript
-- Node-Sass
-
-## Database Model
-
-Auth
-
-User
-
-GratitudeEntry
-
-AffirmationEntry
-
-MoodEntry
-
-## Notes from the Developer
-
-- This is a revamp of the [Simple-Gratitude-Journal](https://github.com/EdwardRees/Simple-Gratitude-Journal) project as I wanted to redo it, redesigning it, and add more functionality to it. I also didn't like how it was all hosted on the app. So I'm redoing this project and having backend and frontend implementations.
+A Mental Health Blog with a server and a web client
