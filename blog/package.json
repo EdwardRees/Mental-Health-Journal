@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Mental Health Blog",
+  "main": "index.js",
+  "author": "Edward Rees",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "all": "concurrently -n \"server,client\" -c \"#ff0000,#00ff00\" -k \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "concurrently": "^7.1.0"
+  }
+}

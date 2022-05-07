@@ -8,7 +8,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "blog": "npm start --prefix blog",
     "server": "npm start --prefix server",
     "mobile": "npm start --prefix client/app",
     "web": "npm start --prefix client/web",
