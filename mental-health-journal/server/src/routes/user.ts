@@ -74,6 +74,11 @@ const userRouter = (prisma: PrismaClient) => {
         id: parseInt(id),
       },
     });
+    if (!user) {
+      return res.status(400).send({
+        error: "User not found",
+      });
+    }
     let userId = user?.id as number;
     let gratitude = await prisma.gratitudeEntry.findMany({
       where: { userId },

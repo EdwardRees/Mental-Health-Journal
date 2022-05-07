@@ -92,6 +92,81 @@ const userRouter = (prisma: PrismaClient) => {
       .catch((err) => res.status(400).send(err));
   });
 
+  router.get("/get/:id", async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).send({
+        error: "Please provide an id",
+      });
+    }
+    let user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+    if (!user) {
+      return res.status(400).send({
+        error: "User not found",
+      });
+    }
+    let userId = user?.id as number;
+    let blogPosts = await prisma.blogPost.findMany({
+      where: {
+        authorId: userId,
+      },
+    });
+    res.status(200).send({ user: { ...user, blogPosts } });
+  });
+
+  router.put("/edit/firstname", [verify], async (req: any, res: Response) => {
+    const { firstName } = req.body;
+    if (!firstName) {
+      return res.status(400).send({
+        error: "Please provide a first name",
+      });
+    }
+    const { user } = req.user;
+    const { userId } = user;
+    await prisma.user
+      .update({
+        where: {
+          id: userId,
+        },
+        data: {
+          firstName,
+        },
+      })
+      .then((user) => {
+        res.send(user);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+      });
+  });
+
+  router.put("/edit/lastname", [verify], async (req: any, res: Response) => {
+    const { lastName } = req.body;
+    if (!lastName) {
+      return res.status(400).send({
+        error: "Please provide a last name",
+      });
+    }
+    const { user } = req.user;
+    const { userId } = user;
+    await prisma.user
+      .update({
+        where: {
+          id: userId,
+        },
+        data: {
+          lastName,
+        },
+      })
+      .then((user) => {
+        res.send(user);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+      });
+  });
 
   return router;
 };
