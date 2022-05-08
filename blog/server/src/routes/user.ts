@@ -168,6 +168,22 @@ const userRouter = (prisma: PrismaClient) => {
       });
   });
 
+  router.delete("/:id", async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).send({
+        error: "Please provide an id",
+      });
+    }
+    await prisma.auth.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+    await prisma.user.delete({ where: { id: parseInt(id) } });
+    res.send("User deleted");
+  });
+
   return router;
 };
 
