@@ -168,7 +168,7 @@ const userRouter = (prisma: PrismaClient) => {
       });
   });
 
-  router.delete("/:id", async (req: Request, res: Response) => {
+  router.delete("/:id", [admin], async (req: Request, res: Response) => {
     const { id } = req.params;
     if (!id) {
       return res.status(400).send({

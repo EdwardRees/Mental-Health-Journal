@@ -61,7 +61,12 @@ describe("auth/register", () => {
   });
   it("Should remove the user", async () => {
     const response = await axios.delete(
-      `http://localhost:8081/api/user/${createdUser.id}`
+      `http://localhost:8081/api/user/${createdUser.id}`,
+      {
+        headers: {
+          "x-admin-token": true,
+        },
+      }
     );
     expect(response.status).toBe(200);
     expect(response.data).toBe("User deleted");
@@ -97,7 +102,12 @@ describe("auth/login", () => {
   });
   it("Should remove the user", async () => {
     const response = await axios.delete(
-      `http://localhost:8081/api/user/${createdUser.id}`
+      `http://localhost:8081/api/user/${createdUser.id}`,
+      {
+        headers: {
+          "x-admin-token": true,
+        },
+      }
     );
     expect(response.status).toBe(200);
     expect(response.data).toBe("User deleted");
