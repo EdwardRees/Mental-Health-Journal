@@ -22,35 +22,51 @@ model Auth {
 }
 
 model BlogPost {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id         Int           @id @default(autoincrement())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
   title      String
   content    String
-  published  Boolean    @default(false)
-  author     User       @relation(fields: [authorId], references: [id])
+  published  Boolean       @default(false)
+  author     User          @relation(fields: [authorId], references: [id])
   authorId   Int
   authorName String
   likes      Like[]
   comments   Comment[]
-  tags       Tag[]
-  categories Category[]
+  tags       HasTag[]
+  categories HasCategory[]
+}
+
+model HasTag {
+  id         Int      @id @default(autoincrement())
+  post   BlogPost @relation(fields: [postId], references: [id])
+  postId Int
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  tagId      Int
 }
 
 model Tag {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   name      String
-  posts     BlogPost[]
+  posts     HasTag[]
+}
+
+model HasCategory {
+  id         Int      @id @default(autoincrement())
+  post       BlogPost @relation(fields: [postId], references: [id])
+  postId     Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
 }
 
 model Category {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
   name      String
-  posts     BlogPost[]
+  posts     HasCategory[]
 }
 
 model Like {
