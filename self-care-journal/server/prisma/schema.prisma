@@ -113,7 +113,7 @@ model CompletedSelfCareActivity {
   selfCareActivity   SelfCareActivity @relation(fields: [selfCareActivityId], references: [id])
   userId             Int
   selfCareActivityId Int
-  completedOn        DateTime
+  completedOn        DateTime         @default(now())
 }
 
 model PasswordReset {
@@ -124,7 +124,7 @@ model PasswordReset {
   userId    Int
   token     String
   expiresAt DateTime
-  used      Boolean
+  used      Boolean  @default(false)
 }
 
 model User {
